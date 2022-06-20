@@ -1,21 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { useCallback } from 'react';
-import Item from './components/Item';
+import { StyleSheet, View } from 'react-native';
+import HomePage from './components/HomePage';
 
 export default function App() {
-  const [count, setCount] = React.useState(0);
-
-  const handleClick = useCallback(() => {
-    setCount(count + 1);
-  }, []);
-
+  const [count] = React.useState<number>(10);
   return (
     <View style={styles.container}>
-      <Text onPress={handleClick}>{count}</Text>
-      <StatusBar style="auto" />
-      <div>Item</div>
+      <HomePage count={count}/>
     </View>
   );
 }
