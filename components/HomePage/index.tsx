@@ -26,7 +26,7 @@ export default function HomePage() {
           <Text style = {styles.keHoach2}>Tiết kiệm điện, nước, giảm chi phí cho việc ... xem thêm</Text>
         </View>
         <View style = {styles.iconKeHoach}>
-          <Icon name="shopping-bag" color="#a85c32" size={40}/>
+          <Icon name="shopping-cart" color="#a85c32" size={40}/>
         </View>
       </View>
       <Text style = {{
@@ -74,14 +74,7 @@ export default function HomePage() {
           }}>Tổng chi tiêu</Text>
         </View>
       </View>
-      <Text style = {{
-        marginTop: 80,
-        fontWeight: 'bold',
-        fontSize: 16,
-        alignSelf: 'center', 
-        position: 'relative'
-      }}>+5.000.000 VNĐ</Text>
-
+      {/* 
       <TouchableOpacity style = {styles.btnAdd} onPress={() => Alert.alert('Simple Button pressed')}>
               <Icon1 name="pluscircleo" color="white" size={50}/>
       </TouchableOpacity>
@@ -92,6 +85,7 @@ export default function HomePage() {
             height: '100%',
           }} source={require('../../assets/doc.png')}/>
       </View>
+      */}
     </View>
   )
 }
