@@ -2,7 +2,6 @@ import *as React from "react";
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, Alert, TouchableOpacity, Button, AppRegistry, TextInput } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
-
 function App() {
   return (
     <SafeAreaView style={styles.container}>
@@ -136,10 +135,10 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    width: 350,
+    width: 380,
     borderBottomWidth: 2,
     borderBottomColor: '#567D89',
-    marginBottom: 30
+    marginBottom: 20
   },
   scrollView: {
     flexDirection: 'column',
@@ -154,8 +153,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#c4c4c4',
     borderRadius: 10,
     padding: 10,
-    fontWeight: "bold"
-
+    fontWeight: "bold",
   },
   scrollItemRightBox: {
     justifyContent: 'center',
@@ -170,10 +168,6 @@ const styles = StyleSheet.create({
     marginHorizontal: '2%',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: -5 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
   },
   layer: {
     backgroundColor: '#567d89',
@@ -212,5 +206,3 @@ const styles = StyleSheet.create({
 }
 )
 export default App;
-
-

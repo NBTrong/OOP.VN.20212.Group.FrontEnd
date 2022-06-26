@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import React, { Component } from 'react';
 import { useCallback } from 'react';
 import HomeStay from './components/page4/HomeStay';
+import HomeStay_2 from './components/page4/HomeStay_2';
 export default function App(): JSX.Element {
   const [count, setCount] = React.useState(0);
   return (
