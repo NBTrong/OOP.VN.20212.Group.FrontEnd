@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, Image, Alert, TouchableOpacity, Button } from 'react-native';
 
-function IncomePage(){
+function IncomePage(id:any){
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerLeftBox}></View>
         <View style={styles.titleBox}>
@@ -49,28 +49,8 @@ function IncomePage(){
         </Text>
       </View>
       <View style={styles.layer1}>
-        <Text style={{
-              color: 'white',
-              fontSize: 20,
-              fontWeight: 'bold',
-              marginVertical: '5%',
-              marginHorizontal: '5%'}}>
-          Mục tiêu thu nhập
-        </Text>
-          <View style={styles.progressbar}>
-            <View style={{backgroundColor: '#567D89', width:'75%', borderRadius: 15}}/>
-          </View>
-          <View style={{alignItems: 'flex-end', marginHorizontal: '5%', marginBottom: '5%'}}>
-            <Text style={{
-              color: 'white',
-              fontSize: 12,
-              }}>
-              15.000.000 / 20.000.000
-            </Text>
-          </View>
-        <View style={styles.layer2}>
           <Text style={{
-              color: '#709F9D',
+              color: 'white',
               fontSize: 20,
               fontWeight: 'bold',
               marginVertical: '5%',
@@ -95,9 +75,8 @@ function IncomePage(){
               </View>
             </TouchableOpacity>
           </ScrollView>
-        </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 const styles = StyleSheet.create({
@@ -139,7 +118,7 @@ const styles = StyleSheet.create({
   },
   text:{
     textAlign:'center',
-    color: 'white',
+    color: '#709F9D',
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -220,7 +199,7 @@ const styles = StyleSheet.create({
     marginBottom: '5%',
     height: 50,
     width: '90%',
-    backgroundColor: '#709F9D',
+    backgroundColor: 'white',
     borderRadius: 15,
     shadowColor: 'black',
     shadowOffset: {width: 0, height:5},

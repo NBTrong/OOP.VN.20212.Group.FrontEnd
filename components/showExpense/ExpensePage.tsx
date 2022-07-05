@@ -1,16 +1,18 @@
-import React, { useState, useCallback } from 'react'
+import React from 'react';
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, Image, Alert, TouchableOpacity, Button } from 'react-native';
+import appNavigator from '../appNavigator';
 import IncomePage from '../showIncome/IncomePage';
-function getComponent(){
-  return <IncomePage/>
-}
-
-function ExpensePage(){
+import { NavigationScreenProp } from 'react-navigation';
+import axios from 'axios';
+import { useState } from 'react';
+function ExpensePage(id: any) {
+  const res = axios.get('http://localhost:9000/api/v1/expense');
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerLeftBox}>
-        <TouchableOpacity>
+          <TouchableOpacity
+          >
             <Text style={{fontSize:14,color:'grey'}}> {'<'} Thu nhập  </Text>
           </TouchableOpacity>
         </View>
@@ -20,7 +22,7 @@ function ExpensePage(){
           </Text>
         </View>
         <View style={styles.headerRightBox}>
-          
+        
         </View>
       </View>
       <TouchableOpacity 
@@ -55,28 +57,8 @@ function ExpensePage(){
         </Text>
       </View>
       <View style={styles.layer1}>
-        <Text style={{
-              color: 'white',
-              fontSize: 20,
-              fontWeight: 'bold',
-              marginVertical: '5%',
-              marginHorizontal: '5%'}}>
-          Giới hạn chi tiêu
-        </Text>
-          <View style={styles.progressbar}>
-            <View style={{backgroundColor: '#567D89', width:'75%', borderRadius: 15}}/>
-          </View>
-          <View style={{alignItems: 'flex-end', marginHorizontal: '5%', marginBottom: '5%'}}>
-            <Text style={{
-              color: 'white',
-              fontSize: 12,
-              }}>
-              15.000.000 / 20.000.000
-            </Text>
-          </View>
-        <View style={styles.layer2}>
           <Text style={{
-              color: '#709F9D',
+              color: 'white',
               fontSize: 20,
               fontWeight: 'bold',
               marginVertical: '5%',
@@ -86,12 +68,6 @@ function ExpensePage(){
           <ScrollView style={styles.scrollView}>
             <TouchableOpacity style={styles.scrollBox}>
               <View style={styles.scrollItemNameBox}>
-                {/* <View style={{width:'20%',justifyContent:'center'}}>
-                  <Image
-                    source={require('../../assets/dish.png')}
-                    style={styles.ImageIconStyle}
-                />
-                </View> */}
                 <Text style={styles.text}>Ăn uống</Text>
               </View>
               <View style={styles.scrollItemAmmountBox}>  
@@ -139,9 +115,8 @@ function ExpensePage(){
               </View>
             </TouchableOpacity>
           </ScrollView>
-        </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 const styles = StyleSheet.create({
@@ -183,7 +158,7 @@ const styles = StyleSheet.create({
   },
   text:{
     textAlign:'center',
-    color: 'white',
+    color: '#709F9D',
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -232,27 +207,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
   },
-  layer2: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent:'space-between',
-    backgroundColor: '#fff',
-    marginHorizontal: '2%',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    shadowColor: 'black',
-    shadowOffset: {width: 0, height:-5},
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-  },
-  progressbar:{
-    flexDirection: 'row',
-    height: 5,
-    marginHorizontal: '5%',
-    marginBottom: 5,
-    backgroundColor: 'white',
-    borderRadius: 15,
-  },
   scrollView:{
     flexDirection:'column',
   },
@@ -264,7 +218,7 @@ const styles = StyleSheet.create({
     marginBottom: '5%',
     height: 50,
     width: '90%',
-    backgroundColor: '#709F9D',
+    backgroundColor: 'white',
     borderRadius: 15,
     shadowColor: 'black',
     shadowOffset: {width: 0, height:5},
