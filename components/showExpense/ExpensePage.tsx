@@ -1,18 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, Image, Alert, TouchableOpacity, Button } from 'react-native';
-import appNavigator from '../appNavigator';
-import IncomePage from '../showIncome/IncomePage';
-import { NavigationScreenProp } from 'react-navigation';
-import axios from 'axios';
-import { useState } from 'react';
-function ExpensePage(id: any) {
-  const res = axios.get('http://localhost:9000/api/v1/expense');
+// import appNavigator from '../appNavigator';
+// import IncomePage from '../showIncome/IncomePage';
+// import { NavigationScreenProp } from 'react-navigation';
+import { useState, useCallback } from 'react';
+// import MonthPicker from 'react-native-month-year-picker';
+import { getListExpenseApi } from '../../services/ExpenseApi';
+import { List } from 'react-native-paper';
+function ExpensePage({ userKey }: { userKey: string }) {
+  // const [date, setDate] = useState(new Date());
+  // const [show, setShow] = useState(false);
+  const [listExpense, setListExpense] = useState<any>({});
+
+  // const showPicker = useCallback((value) => setShow(value), []);
+
+  // const onValueChange = useCallback(
+  //   (event, newDate) => {
+  //     const selectedDate = newDate || date;
+
+  //     showPicker(false);
+  //     setDate(selectedDate);
+  //   },
+  //   [date, showPicker],
+  // );
+  const getListExpense = useCallback(async () => {
+    try {
+      const response = await getListExpenseApi(userKey);
+      setListExpense(response.data.data)
+    } catch(error) {
+      console.log(error)
+    }
+  }, []);
+
+  useEffect(() => {
+    getListExpense();
+  }, [])
+  const total = (Array.from(listExpense).reduce((total : any, currentValue: any) => total=total+currentValue?.amount,0))
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerLeftBox}>
-          <TouchableOpacity
-          >
+          <TouchableOpacity>
             <Text style={{fontSize:14,color:'grey'}}> {'<'} Thu nhập  </Text>
           </TouchableOpacity>
         </View>
@@ -22,12 +50,11 @@ function ExpensePage(id: any) {
           </Text>
         </View>
         <View style={styles.headerRightBox}>
-        
         </View>
       </View>
       <TouchableOpacity 
         style={styles.dateBox}
-        onPress ={()=> Alert.alert('Calendar')}
+        // onPress={() => showPicker(true)}
       >
         <View style={{width:'20%'}}></View>
         <View style={{flexDirection:'row',alignItems:'center',width:'60%',justifyContent:'center'}}>
@@ -45,15 +72,24 @@ function ExpensePage(id: any) {
           />
         </View>
       </TouchableOpacity>
-      <View style={styles.textBox}>
+      {/* {show && (
+        <MonthPicker
+          onChange={onValueChange}
+          value={date}
+          minimumDate={new Date()}
+          maximumDate={new Date(2025, 5)}
+          locale="ko"
+        />
+      )} */}
+      <View style={styles.totalBox}>
         <Text style={{textAlign:'center',
               color: 'black',
               fontSize: 18,
               marginVertical: '5%'}}>
           Chi tiêu tháng này
         </Text>
-        <Text style ={{textAlign: 'center', color: '#A16B56', fontSize: 30, fontWeight: 'bold', marginBottom: '5%'}}>
-          15.000.000 VND
+        <Text style ={styles.totalAmount}> 
+          {total} VND
         </Text>
       </View>
       <View style={styles.layer1}>
@@ -66,54 +102,17 @@ function ExpensePage(id: any) {
             Danh sách chi tiêu
           </Text>
           <ScrollView style={styles.scrollView}>
-            <TouchableOpacity style={styles.scrollBox}>
-              <View style={styles.scrollItemNameBox}>
-                <Text style={styles.text}>Ăn uống</Text>
-              </View>
-              <View style={styles.scrollItemAmmountBox}>  
-                <Text style={styles.text}>7.000.000 VNĐ</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.scrollBox}>
-              <View style={styles.scrollItemNameBox}>
-                <Text style={styles.text}>Đi lại</Text>
-              </View>
-              <View style={styles.scrollItemAmmountBox}>
-                <Text style={styles.text}>800.000 VNĐ</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.scrollBox}>
-              <View style={styles.scrollItemNameBox}>
-                <Text style={styles.text}>Giao lưu</Text>
-              </View>
-              <View style={styles.scrollItemAmmountBox}>
-                <Text style={styles.text}>1.000.000 VNĐ</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.scrollBox}>
-              <View style={styles.scrollItemNameBox}>
-                <Text style={styles.text}>Giáo dục</Text>
-              </View>
-              <View style={styles.scrollItemAmmountBox}>
-                <Text style={styles.text}>5.000.000 VNĐ</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.scrollBox}>
-              <View style={styles.scrollItemNameBox}>
-                <Text style={styles.text}>Y tế</Text>
-              </View>
-              <View style={styles.scrollItemAmmountBox}>
-                <Text style={styles.text}>200.000 VNĐ</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.scrollBox}>
-              <View style={styles.scrollItemNameBox}>
-                <Text style={styles.text}>Quần áo</Text>
-              </View>
-              <View style={styles.scrollItemAmmountBox}>
-                <Text style={styles.text}>1.000.000 VNĐ</Text>
-              </View>
-            </TouchableOpacity>
+            { Array.from(listExpense).map((obj: any) => (
+              <TouchableOpacity style={styles.scrollBox}>
+                <View style={styles.scrollItemNameBox}>
+                  <Text style={styles.text}>{obj.category.name}</Text>
+                </View>
+                <View style={styles.scrollItemAmmountBox}>  
+                  <Text style={styles.text}>{obj.amount} VND</Text>
+                </View>
+              </TouchableOpacity>
+              )
+            )}
           </ScrollView>
       </View>
     </View>
@@ -186,14 +185,20 @@ const styles = StyleSheet.create({
     width: '50%',
     resizeMode:'stretch',
   },
-  textBox:{
+  totalBox:{
     justifyContent:'center',
     flexDirection:'column',
     marginBottom:30,
-    height: 100,
     width: '80%',
     backgroundColor: '#E2D7A7',
     borderRadius: 15,
+  },
+  totalAmount:{
+    textAlign: 'center', 
+    color: '#A16B56', 
+    fontSize: 30, 
+    fontWeight: 'bold',
+    marginBottom: '5%'
   },
   layer1: {
     flex: 1,
