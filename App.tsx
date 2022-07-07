@@ -7,7 +7,7 @@ export default function App() {
   const [userKey, setUserKey] = useState("batrong");
   return (
     <>
-      <ExpensePage userKey = {userKey}/>
+      <IncomePage userKey = {userKey}/>
     </>
   )
 };

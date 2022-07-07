@@ -4,9 +4,9 @@ import axios from "axios";
 //     baseURL: 'localhost:9000'
 // })
 
-export const getListExpenseApi = (userKey: string) => axios({
+export const getListIncomeApi = (userKey: string) => axios({
     method: 'POST',
-    url: 'http://localhost:9000/api/v1/expense',
+    url: 'http://localhost:9000/api/v1/income',
     data: {
         userKey: userKey,
     }

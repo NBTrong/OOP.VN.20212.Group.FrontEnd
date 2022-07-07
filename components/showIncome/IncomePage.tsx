@@ -1,7 +1,22 @@
-import React from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, Image, Alert, TouchableOpacity, Button } from 'react-native';
+import {getListIncomeApi} from '../../services/IncomeApi';
+import styles from '../styles';
+function IncomePage({ userKey }: { userKey: string }){
+  const [listIncome, setListIncome] = useState<any>({});
+  const getListIncome = useCallback(async () => {
+    try {
+      const response = await getListIncomeApi(userKey);
+      setListIncome(response.data.data)
+    } catch(error) {
+      console.log(error)
+    }
+  }, []);
 
-function IncomePage(id:any){
+  useEffect(() => {
+    getListIncome();
+  }, [])
+  const total = (Array.from(listIncome).reduce((total : any, currentValue: any) => total=total+currentValue?.amount,0))
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -37,15 +52,15 @@ function IncomePage(id:any){
           />
         </View>
       </TouchableOpacity>
-      <View style={styles.textBox}>
+      <View style={styles.totalBox}>
         <Text style={{textAlign:'center',
               color: 'black',
               fontSize: 18,
               marginVertical: '5%'}}>
           Thu nhập tháng này
         </Text>
-        <Text style ={{textAlign: 'center', color: '#A16B56', fontSize: 30, fontWeight: 'bold', marginBottom: '5%'}}>
-          15.000.000 VND
+        <Text style ={styles.totalAmount}>
+          {total} VND
         </Text>
       </View>
       <View style={styles.layer1}>
@@ -58,163 +73,19 @@ function IncomePage(id:any){
             Danh sách thu nhập
           </Text>
           <ScrollView style={styles.scrollView}>
+          { Array.from(listIncome).map((obj: any) => (
             <TouchableOpacity style={styles.scrollBox}>
               <View style={styles.scrollItemNameBox}>
-                <Text style={styles.text}>Lương</Text>
+                <Text style={styles.text}>{obj.category.name}</Text>
               </View>
               <View style={styles.scrollItemAmmountBox}>
-                <Text style={styles.text}>12.000.000 VNĐ</Text>
+                <Text style={styles.text}>{obj.amount} VND</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.scrollBox}>
-              <View style={styles.scrollItemNameBox}>
-                <Text style={styles.text}>Thưởng</Text>
-              </View>
-              <View style={styles.scrollItemAmmountBox}>
-                <Text style={styles.text}>3.000.000 VNĐ</Text>
-              </View>
-            </TouchableOpacity>
+            ))}
           </ScrollView>
       </View>
     </View>
   );
 }
-const styles = StyleSheet.create({
-  container:{
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    paddingTop: '10%',
-  },
-  header:{
-    flexDirection: 'row',
-    justifyContent:'flex-end',
-    width: '95%',
-    borderBottomWidth: 1,
-    borderBottomColor: '#567D89',
-    marginBottom:'5%',
-  },
-  headerLeftBox:{
-    flexDirection:'row',
-    justifyContent:'flex-start',
-    alignItems:'flex-end',
-    width:'25%',
-  },
-  titleBox:{
-    alignItems:'center',
-    width: '50%',
-  },
-  headerRightBox:{
-    flexDirection:'row',
-    justifyContent:'flex-end',
-    alignItems:'flex-end',
-    width:'25%',
-  },
-  title:{
-    textAlign:"center",
-    fontSize: 24,
-    fontWeight:"bold",
-  },
-  text:{
-    textAlign:'center',
-    color: '#709F9D',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  date:{
-    textAlign:'center',
-    color:"#fff",
-    fontSize: 24,
-  },
-  dateBox:{
-    justifyContent: 'center',
-    flexDirection: "row",
-    alignItems: 'center',
-    marginBottom: '5%',
-    height: 50,
-    width: '80%',
-    backgroundColor: '#567D89',
-    borderRadius: 15,
-    shadowColor: 'black',
-    shadowOffset: {width: 0, height:5},
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-  },
-  ImageIconStyle:{
-    height: '60%',
-    width: '50%',
-    resizeMode:'stretch',
-  },
-  textBox:{
-    justifyContent:'center',
-    flexDirection:'column',
-    marginBottom:30,
-    height: 100,
-    width: '80%',
-    backgroundColor: '#E2D7A7',
-    borderRadius: 15,
-  },
-  layer1: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    backgroundColor: '#709F9D',
-    width: '98%',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    shadowColor: 'black',
-    shadowOffset: {width: 0, height:-5},
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-  },
-  layer2: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent:'space-between',
-    backgroundColor: '#fff',
-    marginHorizontal: '2%',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    shadowColor: 'black',
-    shadowOffset: {width: 0, height:-5},
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-  },
-  progressbar:{
-    flexDirection: 'row',
-    height: 5,
-    marginHorizontal: '5%',
-    marginBottom: 5,
-    backgroundColor: 'white',
-    borderRadius: 15,
-  },
-  scrollView:{
-    flexDirection:'column',
-  },
-  scrollBox:{
-    flexDirection: "row",
-    alignItems:'center',
-    justifyContent: 'space-around',
-    marginHorizontal: '5%',
-    marginBottom: '5%',
-    height: 50,
-    width: '90%',
-    backgroundColor: 'white',
-    borderRadius: 15,
-    shadowColor: 'black',
-    shadowOffset: {width: 0, height:5},
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-  },
-  scrollItemNameBox:{
-    paddingLeft: '5%', 
-    width:'40%', 
-    alignItems:'flex-start'
-  },
-  scrollItemAmmountBox:{
-    paddingRight: '5%', 
-    width:'60%', 
-    alignItems:'flex-end'
-  },
-})
 export default IncomePage;
