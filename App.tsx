@@ -2,14 +2,17 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import React, { Component } from 'react';
 import { useCallback } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import HomeStay from './components/page4/HomeStay';
 import HomeStay_2 from './components/page4/HomeStay_2';
+
+import Tab from './navigation/tab'
 export default function App(): JSX.Element {
   const [count, setCount] = React.useState(0);
   return (
-    
-       <HomeStay/>
-  
+      <NavigationContainer>
+        <Tab/>
+      </NavigationContainer>
   )
 }
 

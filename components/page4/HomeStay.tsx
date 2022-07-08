@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 
 function App() {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.heading}>
         <View style={styles.headingLeftBox}>
           <TouchableOpacity>
@@ -99,7 +99,7 @@ function App() {
           <Text style={styles.textInLayer2}>1.000.000 VNĐ</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -107,8 +107,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    marginHorizontal: 16,
-    position: "relative"
+    alignItems:'center',
+    backgroundColor: 'white',
   },
   text: {
     fontWeight: 'bold'
@@ -134,9 +134,9 @@ const styles = StyleSheet.create({
   heading: {
     paddingTop: 40,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     width: 380,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: '#567D89',
     marginBottom: 20
   },
@@ -164,8 +164,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
+    width: '90%',
     backgroundColor: '#fff',
-    marginHorizontal: '2%',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
   },
@@ -174,8 +174,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     position: 'absolute',
-    bottom:100,
-    width: '100%'
+    bottom:150,
+    width: '90%'
   },
   textInLayer1: {
     paddingLeft: 10,

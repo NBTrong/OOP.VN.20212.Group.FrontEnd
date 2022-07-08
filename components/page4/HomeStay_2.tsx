@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     width: '80%',
     backgroundColor: '#FFFFFF',
     borderRadius: 15,
-    borderColor:"#FF5722",
+    
   },
   textBox_2:{
     justifyContent:'center',
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     width: '80%',
     backgroundColor: '#EEEEEE',
     borderRadius: 15,
-    borderColor:"#FF5722",
+    borderBottomColor: '#567D89',
   },
   textBox_3:{
     justifyContent:'center',
@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 15,
     borderColor:"#FF5722",
+    borderBottomColor: '#567D89',
   },
   progressbar:{
     flexDirection: 'row',
