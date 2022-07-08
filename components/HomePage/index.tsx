@@ -1,22 +1,28 @@
+import React from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, TouchableOpacityBase, View, Image } from 'react-native'
-import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import Icon1 from 'react-native-vector-icons/AntDesign'
 
 export default function HomePage() {
+  var showDate = new Date();
+  var thu = showDate.getDay(); 
+  var ngay = showDate.getDate();
+  var thang = showDate.getMonth();
+  var nam = showDate.getFullYear();
+  var displayDate = `Thứ ${thu+1} ngày ${ngay} tháng ${thang+1} năm ${nam}`
+
   return (
     <View style = {styles.container}>
       <View style = {styles.top}> 
         <Text style = {styles.topText}>Trang chủ</Text>
       </View>
-      <Text style = {styles.day}>Thứ 6 ngày 12 tháng 6 năm 2022</Text>
+      <Text style = {styles.day}>{displayDate}</Text>
       <View style = {styles.tietKiem}>
         <Text style = {styles.tietKiem1}>Tiết Kiệm</Text>
         <Text style = {styles.tietKiem2}>5.000.000 VNĐ</Text>
         <Text style = {styles.tietKiem3}>Khả dụng</Text>
       </View>
       <View style = {styles.nganSach}>
-        <Text style = {styles.nganSach1}>Ngân sách cho tháng 6</Text>
+        <Text style = {styles.nganSach1}>Ngân sách cho tháng {thang +1}</Text>
         <Text style = {styles.nganSach2}>còn lại</Text>
         <Text style = {styles.nganSach3}>5.000.000 VNĐ</Text>
       </View>
@@ -74,18 +80,6 @@ export default function HomePage() {
           }}>Tổng chi tiêu</Text>
         </View>
       </View>
-      {/* 
-      <TouchableOpacity style = {styles.btnAdd} onPress={() => Alert.alert('Simple Button pressed')}>
-              <Icon1 name="pluscircleo" color="white" size={50}/>
-      </TouchableOpacity>
-
-      <View style = {styles.bottom}>
-          <Image style ={{
-            width: '100%',
-            height: '100%',
-          }} source={require('../../assets/doc.png')}/>
-      </View>
-      */}
     </View>
   )
 }

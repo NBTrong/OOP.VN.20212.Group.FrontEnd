@@ -1,18 +1,19 @@
 import { StyleSheet, View, Text, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import React, { version } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon1 from 'react-native-vector-icons/AntDesign'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screen/HomeScreen';
 import ChatScreen from '../screen/ChatScreen';
 import PostScreen from '../screen/PostScreen';
 import SettingScreen from '../screen/SettingScreen';
 import FindScreen from '../screen/FindScreen';
-import Icon from 'react-native-vector-icons/FontAwesome'
-import Icon1 from 'react-native-vector-icons/AntDesign'
-import HomePage from '../components/HomePage';
+import HomePage from '../HomePage';
 
 
-const CustomTabBarButton = ({children, onPress})  => (
+
+
+const CustomTabBarButton = ({ children, onPress }: { children: any, onPress: any })  => (
     <TouchableOpacity
         style= {{
             top: -35,
@@ -24,7 +25,7 @@ const CustomTabBarButton = ({children, onPress})  => (
             width: 120,
             alignItems: 'center',
         }}>
-            <Image source={require('../assets/plus.png')} ></Image>
+            <Image source={require('../../assets/plus.png')} ></Image>
             {children}
         </View>
     </TouchableOpacity>
@@ -43,20 +44,21 @@ const Tabs = () => {
                 
             },
             tabBarBackground: () => (
-                <Image style={{width: '100%', height: '100%'}} source={require('../assets/doc.png')}/>
+                <Image style={{width: '100%', height: '100%'}} source={require('../../assets/doc.png')}/>
             )
         }}>
         <Tab.Screen 
             name="Home" 
             component={HomePage} 
             options={{
-                tabBarIcon: () => (<Icon name= "home" color="black" size={30}/>)
+                tabBarIcon: () => (<Icon name= "home" color="#A16B56" size={30}/>)
             }}/>
         <Tab.Screen 
             name="Chat" 
             component={ChatScreen} 
             options={{
-                tabBarIcon: ({focused}) => (<Icon name={focused ? "heart" : "heart-o"} color="black" size={25}/>)
+                //tabBarIcon: ({focused}) => (<Icon name={focused ? "heart" : "heart-o"} color="black" size={25}/>)
+                tabBarIcon: () => (<Icon name="heart" color="#A16B56" size={25}/>)
             }}/>
         <Tab.Screen 
             name="Find" 
@@ -71,13 +73,13 @@ const Tabs = () => {
             name="Post" 
             component={PostScreen} 
             options={{
-                tabBarIcon: () => (<Icon name= "shopping-bag" color="black" size={25}/>)
+                tabBarIcon: () => (<Icon name= "shopping-bag" color="#A16B56" size={25}/>)
             }}/>
         <Tab.Screen 
             name="Settings" 
             component={SettingScreen} 
             options={{
-                tabBarIcon: () => (<Icon name= "user" color="black" size={25}/>)
+                tabBarIcon: () => (<Icon name= "user" color="#A16B56" size={25}/>)
             }}/>
      </Tab.Navigator>
     );
