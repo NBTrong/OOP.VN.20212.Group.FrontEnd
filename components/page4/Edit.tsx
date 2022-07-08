@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react'
-import { StyleSheet, Text, View,  SafeAreaView,Image, Alert, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View,  SafeAreaView,Image, Alert, TouchableOpacity, TextInput } from 'react-native';
 
-
-function App(){
-  
+function Edit(){
+  const [text, onChangeText] = useState("Useless Text");
+  const [number, onChangeNumber] = useState('');
   
   return (
     <SafeAreaView style={styles.container}>
@@ -18,8 +18,7 @@ function App(){
             Chi Tiết
           </Text>
         </View>
-        <View style={styles.headingRightBox}>
-          
+        <View style={styles.headingRightBox}>   
         </View>
       </View>
       <TouchableOpacity 
@@ -39,48 +38,54 @@ function App(){
           />
         </View>
       </TouchableOpacity>
-      <View style={styles.textBox_0}>
-        <Text style ={{textAlign: 'left', color: '#000000', fontWeight: 'bold',fontSize: 14, marginBottom: '-1%'}}>
-          Số Tiền
-        </Text>
-      </View>
-      <View style={styles.textBox_1}>
-        <Text style ={{textAlign: 'right', color: '#000000', fontSize: 17,fontWeight: 'bold', marginBottom: '1%', marginRight:'5%'}}>
-          15.000.000.vnđ
-        </Text>
-      </View>
-      <View style={styles.textBox_0}>
-        <Text style ={{textAlign: 'left', color: '#000000',fontWeight: 'bold', fontSize: 14, marginBottom: '-1%'}}>
-          Tên Ghi Nhớ
-        </Text>
-      </View>
-      <View style={styles.textBox_1}>
-        <Text style ={{textAlign: 'right', color: '#000000', fontSize: 17,fontWeight: 'bold', marginBottom: '1%', marginRight:'5%'}}>
-          Lương
-        </Text>
-      </View>
-      <View style={styles.textBox_0}>
-        <Text style ={{textAlign: 'left', color: '#000000',fontWeight: 'bold', fontSize: 14, marginBottom: '-1%'}}>
-          Nội Dung
-        </Text>
-      </View>
-      <View style={styles.textBox_2}>
-        <Text style ={{textAlign: 'left', color: '#000000', fontSize: 17,fontWeight: 'bold', marginBottom: '75%', marginRight:'5%',marginLeft:'7%'}}>
-          Lương cứng 8 triệu thưởng overtime 10h 2 triệu
-        </Text>
-      </View>
-     
-      <TouchableOpacity 
-        style={styles.dateBox2}
-        onPress ={()=> Alert.alert('Next')}    
-      >
-        <View >
-          <Text style ={{textAlign: 'center', color: '#8D6E63',fontSize: 24,fontWeight: 'bold', marginBottom: '1%', marginRight:'17%'}}>
-            Chỉnh Sửa
+      <View style={{height:'60%', justifyContent:'flex-start',flexDirection:'column',width:'80%'}}>
+          <Text style={{fontWeight:'bold'}}>
+            Số tiền
           </Text>
+            <TextInput
+              style={{ height: '10%', borderColor: '#BF360C', borderWidth: 2, borderRadius:10, marginBottom:10 }}
+              onChangeText={Number => onChangeNumber(Number)}
+              value={number}
+              placeholder=".vnd"
+              keyboardType="numeric"
+            />
+
+          <Text style={{fontWeight:'bold'}}>
+            Tên ghi nhớ
+          </Text>
+            <TextInput
+              style={{ height: '10%', borderColor: '#BF360C', borderWidth: 2, borderRadius:10, marginBottom:20 }}
+              onChangeText={text => onChangeText(text)}
+              value={text}
+              placeholder="vd:tien luong..."
+              
+            />
+          <Text style={{fontWeight:'bold'}}>
+            Nội dung
+          </Text>
+            <TextInput
+              style={{ height: '50%', borderColor: '#BF360C', borderWidth: 2, borderRadius:10 }}
+              onChangeText={text => onChangeText(text)}
+              value={text}
+              placeholder="vd:tra luong muon 1 ngay"
+              numberOfLines={100}
+              multiline={true}            
+            />
         </View>
-        
-      </TouchableOpacity>
+
+        <View style={{height:'10%',width:'45%',alignItems:'center'}}>
+        <TouchableOpacity style={{width: '85%', 
+            backgroundColor: 'white',            
+            justifyContent:'center',
+            alignItems:'center',
+            borderColor: '#BF360C',
+            borderRadius:10,
+            marginTop:'15%',
+            flexDirection:'column'}}>
+                <Text style={{ color:'#BF360C', fontSize:30, }}> Chỉnh sửa</Text>
+            </TouchableOpacity>
+
+        </View>
       
     </SafeAreaView>
   );
@@ -91,7 +96,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#fff',
     alignItems: 'center',
-    paddingTop: '10%',
+    marginBottom:'10%'
   },
   heading:{
     flexDirection: 'row',
@@ -106,6 +111,7 @@ const styles = StyleSheet.create({
     justifyContent:'flex-start',
     alignItems:'center',
     width:'25%',
+    
   },
   titleBox:{
     alignItems:'center',
@@ -174,10 +180,10 @@ const styles = StyleSheet.create({
     borderColor:"#FF5722",
   },
   textBox_0:{
-    justifyContent:'flex-end',
+    justifyContent:'flex-start',
     flexDirection:'column',
     marginBottom:5,
-    height: '3%',
+    height: '10%',
     width: '80%',
     backgroundColor: '#FFFFFF',
     borderRadius: 15,
@@ -242,4 +248,4 @@ const styles = StyleSheet.create({
   },
  
 })
-export default App;
+export default Edit;

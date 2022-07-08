@@ -5,10 +5,10 @@ import ChatScreen from '../screen/ChatScreen';
 import PostScreen from '../screen/PostScreen';
 import SettingScreen from '../screen/SettingScreen';
 import FindScreen from '../screen/FindScreen';
-import Icon from 'react-native-vector-icons/FontAwesome'
-import Icon1 from 'react-native-vector-icons/AntDesign'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon1 from 'react-native-vector-icons/AntDesign';
 import HomePage from '../components/HomePage';
-import WishList from '../components/page4/HomeStay'
+import WishList from '../components/page4/WishList';
 
 
 const CustomTabBarButton = ({children, onPress})  => (

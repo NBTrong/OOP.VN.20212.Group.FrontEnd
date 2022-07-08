@@ -1,30 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import React, { Component } from 'react';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import HomeStay from './components/page4/HomeStay';
-import HomeStay_2 from './components/page4/HomeStay_2';
+import WishList from './components/page4/WishList';
+import Edit from './components/page4/Edit';
 
 import Tab from './navigation/tab'
+import HomePage from './components/HomePage';
 export default function App(): JSX.Element {
-  const [count, setCount] = React.useState(0);
+  const [userKey, setuserKey]=useState('batrong')
+
   return (
-      <NavigationContainer>
-        <Tab/>
-      </NavigationContainer>
+      // <WishList userKey= {userKey} />
+      <Edit/>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 30,
-    color: 'red',
-  }
-});

@@ -1,8 +1,23 @@
 import *as React from "react";
+import { useState, useEffect, useCallback } from "react";
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, Alert, TouchableOpacity, Button, AppRegistry, TextInput } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { getWishListApi } from "../../services/WishListApi";
 
-function App() {
+function WishList({userKey} : {userKey:string}) {
+  const [WishList, setWishList] = useState<any>({});
+  const getWishList = useCallback(async () => {
+    try {
+      const response = await getWishListApi(userKey);
+      setWishList(response.data.data)
+    } catch(error) {
+      console.log(error)
+    }
+  }, []);
+
+  useEffect(() => {
+    getWishList();
+  }, [])
   return (
     <View style={styles.container}>
       <View style={styles.heading}>
@@ -25,72 +40,19 @@ function App() {
 
       <View style={styles.layer2}>
         <ScrollView style={styles.scrollView}>
+          {Array.from(WishList).map((obj : any)=>(
           <TouchableOpacity style={styles.scrollBox}>
             <View style={styles.scrollItemLeftBox}>
-              <Text style={styles.text}>1</Text>
+              <Text style={styles.text}>{obj.id}</Text>
             </View>
             <View style={styles.title1}>
-              <Text style={styles.text}>Máy Giặt</Text>
+              <Text style={styles.text}>{obj.category.name}</Text>
             </View>
             <View style={styles.scrollItemRightBox}>
-              <Text style={styles.text}>7.000.000 VNĐ</Text>
+              <Text style={styles.text}>{obj.amount}</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.scrollBox}>
-            <View style={styles.scrollItemLeftBox}>
-              <Text style={styles.text}>2</Text>
-            </View>
-            <View style={styles.title1}>
-              <Text style={styles.text}>Máy Giặt</Text>
-            </View>
-            <View style={styles.scrollItemRightBox}>
-              <Text style={styles.text}>2.000.000 VNĐ</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.scrollBox}>
-            <View style={styles.scrollItemLeftBox}>
-              <Text style={styles.text}>3</Text>
-            </View>
-            <View style={styles.title1}>
-              <Text style={styles.text}>Máy Giặt</Text>
-            </View>
-            <View style={styles.scrollItemRightBox}>
-              <Text style={styles.text}>1.000.000 VNĐ</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.scrollBox}>
-            <View style={styles.scrollItemLeftBox}>
-              <Text style={styles.text}>4</Text>
-            </View>
-            <View style={styles.title1}>
-              <Text style={styles.text}>Máy Giặt</Text>
-            </View>
-            <View style={styles.scrollItemRightBox}>
-              <Text style={styles.text}>1.000.000 VNĐ</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.scrollBox}>
-            <View style={styles.scrollItemLeftBox}>
-              <Text style={styles.text}>5</Text>
-            </View>
-            <View style={styles.title1}>
-              <Text style={styles.text}>Máy Giặt</Text>
-            </View>
-            <View style={styles.scrollItemRightBox}>
-              <Text style={styles.text}>200.000 VNĐ</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.scrollBox}>
-            <View style={styles.scrollItemLeftBox}>
-              <Text style={styles.text}>6</Text>
-            </View>
-            <View style={styles.title1}>
-              <Text style={styles.text}>Máy Giặt</Text>
-            </View>
-            <View style={styles.scrollItemRightBox}>
-              <Text style={styles.text}>1.000.000 VNĐ</Text>
-            </View>
-          </TouchableOpacity>
+          ))}
         </ScrollView>
       </View>
       <View style={styles.layer}>
@@ -135,7 +97,7 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     flexDirection: 'row',
     justifyContent: 'center',
-    width: 380,
+    width: '95%',
     borderBottomWidth: 1,
     borderBottomColor: '#567D89',
     marginBottom: 20
@@ -205,4 +167,4 @@ const styles = StyleSheet.create({
   },
 }
 )
-export default App;
+export default WishList;
